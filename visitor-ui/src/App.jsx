@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Checkin from "./Checkin";
-import Approval from "./Approval";
-import Success from "./Success";
+import Checkin from "./screens/Checkin";
+import Approval from "./screens/Approval";
+import Success from "./screens/Success";
 
 function App() {
   const [step, setStep] = useState("checkin");

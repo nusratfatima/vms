@@ -8,6 +8,11 @@ export default function Checkin({ setStep, setVisitId }) {
   const [loading, setLoading] = useState(false);
 
   const handleCheckin = async () => {
+    if (!name || !phone) {
+      alert("Name and phone are required");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -15,15 +20,13 @@ export default function Checkin({ setStep, setVisitId }) {
         "http://127.0.0.1:8000/api/visits/checkin/",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name,
             phone,
             company,
             purpose,
-            host_id: 1, // 🔴 TEMP: replace with real host later
+            host_id: 1,
           }),
         }
       );
@@ -32,11 +35,11 @@ export default function Checkin({ setStep, setVisitId }) {
 
       if (response.ok) {
         setVisitId(data.visit_id);
-        setStep("approval"); // 👉 move to waiting/approval screen
+        setStep("approval");
       } else {
         alert("Check-in failed");
       }
-    } catch (err) {
+    } catch {
       alert("Server error");
     } finally {
       setLoading(false);
@@ -44,36 +47,126 @@ export default function Checkin({ setStep, setVisitId }) {
   };
 
   return (
-    <div style={{ padding: 40 }}>
-      <h1>Visitor Check-in</h1>
+    <>
+      <style>{`
+        * {
+          box-sizing: border-box;
+        }
 
-      <input
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      /><br /><br />
+        body {
+          margin: 0;
+          font-family: system-ui, sans-serif;
+          background: #f4f7fb;
+        }
 
-      <input
-        placeholder="Phone"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-      /><br /><br />
+        .page {
+          min-height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
 
-      <input
-        placeholder="Company"
-        value={company}
-        onChange={(e) => setCompany(e.target.value)}
-      /><br /><br />
+        .container {
+          width: 100%;
+          max-width: 420px;
+          padding: 20px;
+        }
 
-      <input
-        placeholder="Purpose"
-        value={purpose}
-        onChange={(e) => setPurpose(e.target.value)}
-      /><br /><br />
+        .logo {
+          text-align: center;
+          margin-bottom: 20px;
+          color: #0b5ed7;
+          font-size: 22px;
+          font-weight: 600;
+        }
 
-      <button onClick={handleCheckin} disabled={loading}>
-        {loading ? "Checking in..." : "Check In"}
-      </button>
-    </div>
+        .card {
+          background: white;
+          padding: 30px;
+          border-radius: 14px;
+          box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+        }
+
+        .card h1 {
+          text-align: center;
+          color: #0b5ed7;
+          margin-bottom: 24px;
+        }
+
+        input {
+          width: 100%;
+          padding: 12px;
+          margin-bottom: 14px;
+          border-radius: 6px;
+          border: 1px solid #ccc;
+          font-size: 14px;
+        }
+
+        input:focus {
+          outline: none;
+          border-color: #0b5ed7;
+        }
+
+        button {
+          width: 100%;
+          padding: 12px;
+          background: #dc3545;
+          color: white;
+          border: none;
+          border-radius: 6px;
+          font-size: 15px;
+          cursor: pointer;
+          transition: background 0.25s, transform 0.2s;
+        }
+
+        button:hover {
+          background: #b02a37;
+          transform: translateY(-1px);
+        }
+
+        button:disabled {
+          background: #e99aa3;
+          cursor: not-allowed;
+        }
+      `}</style>
+
+      <div className="page">
+        <div className="container">
+          <div className="logo">Visitor Management System</div>
+
+          <div className="card">
+            <h1>Visitor Check-In</h1>
+
+            <input
+              placeholder="Full Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+
+            <input
+              placeholder="Phone Number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+
+            <input
+              placeholder="Company / Organization"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            />
+
+            <input
+              placeholder="Purpose of Visit"
+              value={purpose}
+              onChange={(e) => setPurpose(e.target.value)}
+            />
+
+            <button onClick={handleCheckin} disabled={loading}>
+              {loading ? "Checking in..." : "Check In"}
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
