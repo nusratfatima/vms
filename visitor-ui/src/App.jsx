@@ -1,31 +1,55 @@
-import { useState } from "react";
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useParams,
+  Outlet,
+} from "react-router-dom";
+
 import Checkin from "./screens/Checkin";
 import Approval from "./screens/Approval";
 import Success from "./screens/Success";
+import Invites from "./screens/Invites";
+import Sidebar from "./screens/Sidebar";
 
-function App() {
-  const [step, setStep] = useState("checkin");
-  const [visitId, setVisitId] = useState(null);
+/* ---------- Wrapper for Approval ---------- */
+function ApprovalWrapper() {
+  const { visitId } = useParams();
+  const navigate = useNavigate();
 
   return (
-    <>
-      {step === "checkin" && (
-        <Checkin
-          setStep={setStep}
-          setVisitId={setVisitId}
-        />
-      )}
-
-      {step === "approval" && (
-        <Approval
-          visitId={visitId}
-          setStep={setStep}
-        />
-      )}
-
-      {step === "success" && <Success />}
-    </>
+    <Approval
+      visitId={visitId}
+      onApproved={() => navigate("/success")}
+    />
   );
 }
 
-export default App;
+/* ---------- Layout WITH sidebar ---------- */
+function AdminLayout() {
+  return (
+    <div style={{ display: "flex", height: "100vh" }}>
+      <Sidebar />
+      <div style={{ flex: 1, padding: 20 }}>
+        <Outlet />
+      </div>
+    </div>
+  );
+}
+
+/* ---------- App ---------- */
+export default function App() {
+  return (
+    <Routes>
+      {/* Visitor flow (NO sidebar) */}
+      <Route path="/" element={<Checkin />} />
+      <Route path="/approval/:visitId" element={<ApprovalWrapper />} />
+      <Route path="/success" element={<Success />} />
+
+      {/* Admin / host (WITH sidebar) */}
+      <Route element={<AdminLayout />}>
+        <Route path="/invites" element={<Invites />} />
+      </Route>
+    </Routes>
+  );
+}
