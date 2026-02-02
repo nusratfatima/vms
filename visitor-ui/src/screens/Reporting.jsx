@@ -7,6 +7,18 @@ export default function Reporting() {
 
     return (
         <div style={{ padding: 24 }}>
+            {/* 🔒 Kill browser focus outline globally for this page */}
+            <style>
+                {`
+                button:focus {
+                    outline: none;
+                }
+                button:active {
+                    outline: none;
+                }
+                `}
+            </style>
+
             {/* Header */}
             <div style={headerRow}>
                 <h2 style={title}>Reporting</h2>
@@ -62,7 +74,7 @@ export default function Reporting() {
                 </div>
             </div>
 
-            {/* Actions (ONLY Export) */}
+            {/* Actions (Export only) */}
             <div style={actionsRow}>
                 <div style={actionItem}>
                     <button style={circleBtn}>
@@ -208,6 +220,10 @@ const tabText = (active) => ({
     fontWeight: 600,
     color: active ? "#111827" : "#9ca3af",
     cursor: "pointer",
+
+    outline: "none",
+    boxShadow: "none",
+    borderRadius: 0,
 });
 
 const tabTrack = {
