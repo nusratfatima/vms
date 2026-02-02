@@ -11,6 +11,8 @@ import Approval from "./screens/Approval";
 import Success from "./screens/Success";
 import Invites from "./screens/Invites";
 import Sidebar from "./screens/Sidebar";
+import ScanQR from "./screens/ScanQR";
+import ShowQR from "./screens/ShowQR";
 
 /* ---------- Wrapper for Approval ---------- */
 function ApprovalWrapper() {
@@ -43,7 +45,9 @@ export default function App() {
     <Routes>
       {/* Visitor flow (NO sidebar) */}
       <Route path="/" element={<Checkin />} />
-      <Route path="/approval/:visitId" element={<ApprovalWrapper />} />
+      <Route path="/scan" element={<ScanQR />} />
+      <Route path="/showqr" element={<ShowQR />} />
+      <Route path="/approval/:visitId?" element={<ApprovalWrapper />} />
       <Route path="/success" element={<Success />} />
 
       {/* Admin / host (WITH sidebar) */}
