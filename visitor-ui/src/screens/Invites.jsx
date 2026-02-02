@@ -18,7 +18,7 @@ export default function Invites() {
                 }}
             >
                 <h1 style={{ fontSize: 32, fontWeight: 600, color: "#0f172a" }}>
-                    Invitee Log
+                    Invite Log
                 </h1>
 
                 <button
@@ -36,12 +36,6 @@ export default function Invites() {
                 >
                     + Add Invite
                 </button>
-            </div>
-
-            {/* Tabs */}
-            <div style={{ display: "flex", gap: 12, marginBottom: 24 }}>
-                <button style={tab(true)}>Invites</button>
-                <button style={tab(false)}>Appointments</button>
             </div>
 
             {/* Table */}
@@ -66,7 +60,10 @@ export default function Invites() {
                                 "Status",
                                 "Actions",
                             ].map((h) => (
-                                <th key={h} style={{ paddingBottom: 14, fontWeight: 600 }}>
+                                <th
+                                    key={h}
+                                    style={{ paddingBottom: 14, fontWeight: 600 }}
+                                >
                                     {h}
                                 </th>
                             ))}
@@ -93,16 +90,4 @@ export default function Invites() {
             {showModal && <AddInviteModal onClose={() => setShowModal(false)} />}
         </div>
     );
-}
-
-function tab(active) {
-    return {
-        padding: "8px 18px",
-        borderRadius: 999,
-        border: "none",
-        cursor: "pointer",
-        fontWeight: 500,
-        background: active ? "#2563eb" : "#e5e7eb",
-        color: active ? "#fff" : "#111827",
-    };
 }
