@@ -4,7 +4,6 @@ import {
     Menu,
     LayoutGrid,
     Users,
-    Mail,
     BadgeCheck,
     BarChart3,
 } from "lucide-react";
@@ -62,21 +61,17 @@ export default function Sidebar() {
                     {open && "Dashboard"}
                 </NavLink>
 
-                <NavLink to="/visitors" style={linkStyle}>
-                    <Users size={18} />
-                    {open && "Visitor log"}
-                </NavLink>
-
                 <NavLink to="/invites" style={linkStyle}>
-                    <Mail size={18} />
-                    {open && "Invite"}
+                    <Users size={18} />
+                    {open && "Visitor Log"}
                 </NavLink>
 
                 <NavLink to="/passes" style={linkStyle}>
                     <BadgeCheck size={18} />
-                    {open && "Pass issued"}
+                    {open && "Pass Issued"}
                 </NavLink>
 
+                {/* Reporting Screen Added */}
                 <NavLink to="/reports" style={linkStyle}>
                     <BarChart3 size={18} />
                     {open && "Reporting"}

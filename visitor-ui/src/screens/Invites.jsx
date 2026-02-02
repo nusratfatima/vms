@@ -18,7 +18,7 @@ export default function Invites() {
                 }}
             >
                 <h1 style={{ fontSize: 32, fontWeight: 600, color: "#0f172a" }}>
-                    Invite Log
+                    Visitor Log
                 </h1>
 
                 <button

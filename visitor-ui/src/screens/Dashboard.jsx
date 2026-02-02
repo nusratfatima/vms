@@ -1,16 +1,66 @@
+import { useState } from "react";
+
 export default function Dashboard() {
+    const [range, setRange] = useState("30d");
+
+    const rangeLabelMap = {
+        "1h": "Last 1 Hour",
+        "3h": "Last 3 Hours",
+        "6h": "Last 6 Hours",
+        "12h": "Last 12 Hours",
+
+        "1d": "Last 1 Day",
+        "7d": "Last 7 Days",
+        "15d": "Last 15 Days",
+        "30d": "Last 30 Days",
+
+        "3m": "Last 3 Months",
+        "6m": "Last 6 Months",
+        "9m": "Last 9 Months",
+        "1y": "Last 1 Year",
+        "3y": "Last 3 Years",
+        "5y": "Last 5 Years",
+    };
+
+    const rangeLabel = rangeLabelMap[range];
+
     return (
         <div style={page}>
             {/* Header */}
             <div style={header}>
                 <h1 style={welcome}>Welcome back, Nusrat Fatima</h1>
 
-                <button style={filterBtn}>
-                    Last 30 Days ⌄
-                </button>
+                <select
+                    value={range}
+                    onChange={(e) => setRange(e.target.value)}
+                    style={filterSelect}
+                >
+                    <optgroup label="Hours">
+                        <option value="1h">Last 1 Hour</option>
+                        <option value="3h">Last 3 Hours</option>
+                        <option value="6h">Last 6 Hours</option>
+                        <option value="12h">Last 12 Hours</option>
+                    </optgroup>
+
+                    <optgroup label="Days">
+                        <option value="1d">Last 1 Day</option>
+                        <option value="7d">Last 7 Days</option>
+                        <option value="15d">Last 15 Days</option>
+                        <option value="30d">Last 30 Days</option>
+                    </optgroup>
+
+                    <optgroup label="Months / Years">
+                        <option value="3m">Last 3 Months</option>
+                        <option value="6m">Last 6 Months</option>
+                        <option value="9m">Last 9 Months</option>
+                        <option value="1y">Last 1 Year</option>
+                        <option value="3y">Last 3 Years</option>
+                        <option value="5y">Last 5 Years</option>
+                    </optgroup>
+                </select>
             </div>
 
-            {/* Stats Cards */}
+            {/* Stats */}
             <div style={cardGrid}>
                 <StatCard title="Organization Occupancy" value="0" />
                 <StatCard title="Visitors Peak Time" value="0" />
@@ -18,10 +68,10 @@ export default function Dashboard() {
                 <StatCard title="Busiest Week Day" value="-" />
             </div>
 
-            {/* Charts Row 1 */}
+            {/* Charts */}
             <div style={gridTwo}>
                 <ChartCard title="Visitor">
-                    <EmptyChart />
+                    <EmptyChart label={`Visitors (${rangeLabel})`} />
                 </ChartCard>
 
                 <ChartCard title="Employee With Most Visits">
@@ -29,10 +79,9 @@ export default function Dashboard() {
                 </ChartCard>
             </div>
 
-            {/* Charts Row 2 */}
             <div style={gridTwo}>
                 <ChartCard title="Visitor Count">
-                    <EmptyChart />
+                    <EmptyChart label={`Visitor Count (${rangeLabel})`} />
                 </ChartCard>
 
                 <ChartCard title="Top Visits">
@@ -63,21 +112,17 @@ function ChartCard({ title, children }) {
     );
 }
 
-function EmptyChart() {
+function EmptyChart({ label }) {
     return (
         <div style={chartPlaceholder}>
             <div style={gridLines} />
-            <span style={chartLabel}>Chart will appear here</span>
+            <span style={chartLabel}>{label}</span>
         </div>
     );
 }
 
 function EmptyState({ text }) {
-    return (
-        <div style={emptyState}>
-            {text}
-        </div>
-    );
+    return <div style={emptyState}>{text}</div>;
 }
 
 /* ---------- Styles ---------- */
@@ -101,14 +146,17 @@ const welcome = {
     color: "#0f172a",
 };
 
-const filterBtn = {
-    background: "#fb923c",
+/* 🔵 Advanced Blue Filter */
+const filterSelect = {
+    appearance: "none",
+    background: "#2563eb",
     color: "#fff",
     border: "none",
     padding: "10px 16px",
-    borderRadius: 8,
+    borderRadius: 10,
     fontSize: 14,
     cursor: "pointer",
+    boxShadow: "0 6px 18px rgba(37,99,235,0.35)",
 };
 
 const cardGrid = {
@@ -120,7 +168,7 @@ const cardGrid = {
 
 const statCard = {
     background: "#fff",
-    borderRadius: 14,
+    borderRadius: 16,
     padding: "22px",
     boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
     textAlign: "center",
@@ -147,8 +195,8 @@ const gridTwo = {
 
 const chartCard = {
     background: "#fff",
-    borderRadius: 16,
-    padding: 20,
+    borderRadius: 18,
+    padding: 22,
     boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
     minHeight: 260,
 };
@@ -162,7 +210,7 @@ const chartTitle = {
 
 const chartPlaceholder = {
     height: "180px",
-    borderRadius: 12,
+    borderRadius: 14,
     background: "#f1f5f9",
     position: "relative",
     overflow: "hidden",
