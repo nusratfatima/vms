@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
-    Menu,
     LayoutGrid,
     Users,
     BadgeCheck,
@@ -14,9 +13,10 @@ export default function Sidebar() {
     const linkStyle = ({ isActive }) => ({
         display: "flex",
         alignItems: "center",
-        gap: 14,
+        justifyContent: open ? "flex-start" : "center",
+        gap: open ? 14 : 0,
         padding: "10px 14px",
-        borderRadius: 8,
+        borderRadius: 10,
         textDecoration: "none",
         color: isActive ? "#1d4ed8" : "#334155",
         background: isActive ? "#e0e7ff" : "transparent",
@@ -27,53 +27,83 @@ export default function Sidebar() {
         <aside
             style={{
                 width: open ? 240 : 72,
-                transition: "width 0.25s",
+                transition: "width 0.25s ease",
                 background: "#f1f5f9",
                 borderRight: "1px solid #e2e8f0",
                 padding: 12,
+                display: "flex",
+                flexDirection: "column",
             }}
         >
             {/* Header */}
             <div
                 style={{
+                    height: 48,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: open ? "space-between" : "center",
-                    marginBottom: 24,
+                    marginBottom: 28,
                 }}
             >
-                {open && (
-                    <div style={{ fontWeight: 600, color: "#0f172a" }}>
-                        📍 Mumbai
-                    </div>
-                )}
-                <Menu
-                    size={20}
-                    style={{ cursor: "pointer" }}
+                <div
                     onClick={() => setOpen(!open)}
-                />
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        cursor: "pointer",
+                    }}
+                >
+                    <img
+                        src="/Galaxy-logo.png"
+                        alt="Company Logo"
+                        style={{
+                            height: 32,
+                            width: 32,
+                            objectFit: "contain",
+                        }}
+                    />
+
+                    {open && (
+                        <span
+                            style={{
+                                fontWeight: 600,
+                                fontSize: 16,
+                                color: "#0f172a",
+                                whiteSpace: "nowrap",
+                            }}
+                        >
+                            📍 Mumbai
+                        </span>
+                    )}
+                </div>
             </div>
 
             {/* Navigation */}
-            <nav style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <nav
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 6,
+                }}
+            >
                 <NavLink to="/dashboard" style={linkStyle}>
-                    <LayoutGrid size={18} />
+                    <LayoutGrid size={20} />
                     {open && "Dashboard"}
                 </NavLink>
 
                 <NavLink to="/invites" style={linkStyle}>
-                    <Users size={18} />
+                    <Users size={20} />
                     {open && "Visitor Log"}
                 </NavLink>
 
                 <NavLink to="/passes" style={linkStyle}>
-                    <BadgeCheck size={18} />
+                    <BadgeCheck size={20} />
                     {open && "Pass Issued"}
                 </NavLink>
 
-                {/* Reporting Screen Added */}
                 <NavLink to="/reports" style={linkStyle}>
-                    <BarChart3 size={18} />
+                    <BarChart3 size={20} />
                     {open && "Reporting"}
                 </NavLink>
             </nav>
