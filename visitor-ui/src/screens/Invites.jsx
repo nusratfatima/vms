@@ -5,19 +5,19 @@ export default function Invites() {
     const [showModal, setShowModal] = useState(false);
 
     return (
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "24px 16px" }}>
+        <div style={{ padding: "24px 32px" }}>
             {/* Header */}
             <div
                 style={{
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginBottom: 28,
+                    marginBottom: 24,
                     flexWrap: "wrap",
                     gap: 12,
                 }}
             >
-                <h1 style={{ fontSize: 32, fontWeight: 600, color: "#0f172a" }}>
+                <h1 style={{ fontSize: 28, fontWeight: 600, color: "#0f172a" }}>
                     Visitor Log
                 </h1>
 
@@ -27,7 +27,7 @@ export default function Invites() {
                         background: "#2563eb",
                         color: "#fff",
                         border: "none",
-                        padding: "10px 20px",
+                        padding: "10px 18px",
                         borderRadius: 12,
                         fontWeight: 500,
                         cursor: "pointer",
@@ -38,14 +38,14 @@ export default function Invites() {
                 </button>
             </div>
 
-            {/* Table */}
+            {/* Table Card */}
             <div
                 style={{
                     background: "#fff",
                     borderRadius: 16,
                     padding: 24,
                     boxShadow: "0 12px 30px rgba(0,0,0,0.08)",
-                    overflowX: "auto",
+                    width: "100%",
                 }}
             >
                 <table style={{ width: "100%", borderCollapse: "collapse" }}>
