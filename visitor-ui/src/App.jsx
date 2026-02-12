@@ -6,16 +6,20 @@ import {
   Outlet,
 } from "react-router-dom";
 
-import Checkin from "./screens/Checkin";
-import Approval from "./screens/Approval";
-import Success from "./screens/Success";
-import Invites from "./screens/Invites";
-import Sidebar from "./screens/Sidebar";
-import ScanQR from "./screens/ScanQR";
-import ShowQR from "./screens/ShowQR";
-import Dashboard from "./screens/Dashboard";
-import PassIssued from "./screens/PassIssued";
-import Reporting from "./screens/Reporting";
+import Checkin from "./screens/Loadings/Checkin";
+import Approval from "./screens/Loadings/Approval";
+import Success from "./screens/Loadings/Success";
+
+import Invites from "./screens/Invitee/Invites";
+import ScanQR from "./screens/Invitee/ScanQR";
+import ShowQR from "./screens/Invitee/ShowQR";
+import PassIssued from "./screens/Invitee/PassIssued";
+
+import Sidebar from "./screens/Sidebar/Sidebar";
+import Dashboard from "./screens/Dashboard/Dashboard";
+import EmployeePage from "./screens/Employee/EmployeePage";
+import Reporting from "./screens/Reporting/Reporting";
+import VisitorLog from "./screens/VisitorLog/VisitorLog";
 
 /* ---------- Wrapper for Approval ---------- */
 function ApprovalWrapper() {
@@ -63,9 +67,11 @@ export default function App() {
       {/* ---------- Admin / Host flow (WITH sidebar) ---------- */}
       <Route element={<AdminLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/visitors" element={<VisitorLog />} />
         <Route path="/invites" element={<Invites />} />
         <Route path="/passes" element={<PassIssued />} />
         <Route path="/reports" element={<Reporting />} />
+        <Route path="/employee" element={<EmployeePage />} />
       </Route>
     </Routes>
   );
