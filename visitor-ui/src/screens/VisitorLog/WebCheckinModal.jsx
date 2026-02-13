@@ -115,14 +115,14 @@ const header = {
 const title = {
   margin: 0,
   fontSize: 18,
-  color: "#f97316",
+  color: "#2563eb",
   fontWeight: 500,
 };
 
 const close = {
   fontSize: 22,
   cursor: "pointer",
-  color: "#f97316",
+  color: "#2563eb",
 };
 
 const body = {

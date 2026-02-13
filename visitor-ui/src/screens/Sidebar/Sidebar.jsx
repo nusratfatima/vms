@@ -103,7 +103,7 @@ export default function Sidebar() {
             color: "#334155",
           }}
         >
-          📍 Default
+          📍 Mumbai
         </div>
       )}
 
